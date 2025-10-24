@@ -50,7 +50,15 @@ jobs:
 
     - name: Terraform Apply
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-      run: terraform apply -auto-approve
+      run: |
+        if terraform apply -auto-approve; then
+          echo "Bucket created successfully"
+        else
+          echo "Bucket creation failed - it may already exist"
+          echo "To import existing bucket locally:"
+          echo "terraform import cloudflare_r2_bucket.cloudflare-bucket ${{ secrets.TF_VAR_cloudflare_account_id }}/${{ secrets.TF_VAR_cloudflare_bucket_name || 'my-r2-bucket' }}"
+          exit 1
+        fi
       env:
         TF_VAR_cloudflare_api_token: ${{ secrets.TF_VAR_cloudflare_api_token }}
         TF_VAR_cloudflare_account_id: ${{ secrets.TF_VAR_cloudflare_account_id }}

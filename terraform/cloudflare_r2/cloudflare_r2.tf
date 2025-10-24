@@ -35,7 +35,3 @@ resource "cloudflare_r2_bucket" "cloudflare-bucket" {
   name       = var.cloudflare_bucket_name
   location   = "APAC"
 }
-
-# Import existing bucket if it exists
-# Run: terraform import cloudflare_r2_bucket.cloudflare-bucket <account_id>/<bucket_name>
-
