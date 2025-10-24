@@ -1,4 +1,4 @@
-#!/bin/bash
+]#!/bin/bash
 
 set -e
 
@@ -13,18 +13,18 @@ else
 fi
 
 # Check for required environment variables
-if [ -z "$CLOUDFLARE_API_TOKEN" ]; then
-    echo "Error: CLOUDFLARE_API_TOKEN environment variable is not set."
+if [ -z "$TF_VAR_cloudflare_api_token" ]; then
+    echo "Error: TF_VAR_cloudflare_api_token environment variable is not set."
     exit 1
 fi
 
-if [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
-    echo "Error: CLOUDFLARE_ACCOUNT_ID environment variable is not set."
+if [ -z "$TF_VAR_cloudflare_account_id" ]; then
+    echo "Error: TF_VAR_cloudflare_account_id environment variable is not set."
     exit 1
 fi
 
-if [ -z "$TF_VAR_bucket_name" ]; then
-    echo "Error: TF_VAR_bucket_name environment variable is not set."
+if [ -z "$TF_VAR_cloudflare_bucket_name" ]; then
+    echo "Error: TF_VAR_cloudflare_bucket_name environment variable is not set."
     exit 1
 fi
 
