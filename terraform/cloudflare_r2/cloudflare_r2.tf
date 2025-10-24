@@ -30,15 +30,12 @@ variable "cloudflare_bucket_name" {
   default     = "my-r2-bucket"
 }
 
-data "cloudflare_r2_bucket" "existing" {
-  account_id = var.cloudflare_account_id
-  name       = var.cloudflare_bucket_name
-}
-
 resource "cloudflare_r2_bucket" "cloudflare-bucket" {
-  count      = data.cloudflare_r2_bucket.existing.id == "" ? 1 : 0
   account_id = var.cloudflare_account_id
   name       = var.cloudflare_bucket_name
   location   = "APAC"
 }
+
+# Import existing bucket if it exists
+# Run: terraform import cloudflare_r2_bucket.cloudflare-bucket <account_id>/<bucket_name>
 

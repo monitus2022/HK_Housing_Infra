@@ -35,6 +35,13 @@ echo "Planning deployment..."
 terraform plan
 
 echo "Applying configuration..."
-terraform apply -auto-approve
+if terraform apply -auto-approve; then
+    echo "Deployment completed successfully!"
+else
+    echo "Apply failed. The bucket might already exist."
+    echo "To import existing bucket, run:"
+    echo "terraform import cloudflare_r2_bucket.cloudflare-bucket ${TF_VAR_cloudflare_account_id}/${TF_VAR_cloudflare_bucket_name}"
+    exit 1
+fi
 
 echo "Deployment completed successfully!"
